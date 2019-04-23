@@ -15,7 +15,7 @@ from subprocess import check_output
 import sys
 import datetime
 
-class ISSNotify():
+class isspy():
     """
     This class returns the next passes of the ISS.
 
