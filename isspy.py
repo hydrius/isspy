@@ -15,7 +15,7 @@ from subprocess import check_output
 import sys
 import datetime
 
-class isspy():
+class ISSpy():
     """
     This class returns the next passes of the ISS.
 
@@ -28,7 +28,7 @@ class isspy():
     """
 
 
-    def __init__(self, ylat=-37, xlong=144, country="Australia", region="Victoria", city="Melbourne"):
+    def __init__(self, country="Australia", region="Victoria", city="Melbourne", ylat=-37, xlong=144):
 
         self.ylat = ylat
         self.xlong = xlong
@@ -79,7 +79,7 @@ class isspy():
         dic["elevation"] = int(pass_info[17])
         dic["approach_elev"] = int(pass_info[20]) 
         dic["approach_dir"] = pass_info[22]
-        dic["departure"] = int(pass_info[25])
+        dic["departure_elev"] = int(pass_info[25])
         dic["departure_dir"] = pass_info[27]
 
         #print(dic)
@@ -106,9 +106,14 @@ class isspy():
 
 
 if __name__ == "__main__":
+
+    country = "Australia"
+    region = "New_South_Wales"
+    city = "Sydney"
+
     xlat = -37
     ylong = 144
-    x = ISSNotify(xlat, ylong)
+    x = ISSpy(country,region,city)
     #x.get_next_pass()
     print(x.get_passes_STS())
                 
