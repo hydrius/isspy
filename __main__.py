@@ -39,30 +39,39 @@ class ISSpy():
 
         self.http = urllib3.PoolManager()
 
-    def get_passes_STS(self):
+    def get_passes(self):
+        """
+        Returns passes from Spot The Station (as a list) 
+        """
+
+
         passes = []
+
         # Make URL an f-string and put in Country, region, city)
- 
         url = f"https://spotthestation.nasa.gov/sightings/xml_files/{self.country}_{self.region}_{self.city}.xml"
         #url = "https://spotthestation.nasa.gov/sightings/xml_files/Australia_Victoria_Melbourne.xml"
 
-        print(url)
+        #print(url)
         feed = feedparser.parse(url)
         for post in feed.entries:
             
             #reg
             words = re.compile('\w+').findall(post.summary)
             
-            # List is usually 29 words.
+            # List is usually 29 words per passover.
             # 31 words if duration of ISS is below 1 minute.
             # Therefore it ignores all cases below 1 minute.
             # Potential work around, include offset in process passes. 
-            if len(words) < 30:
+            if len(words) == 29:
                 passes.append(self.process_passes(words))
         
         return passes
 
     def process_passes(self, pass_info, offset=0):
+        """
+        This processes the list of words and inserts them into a dictionary.
+        """
+        
         dic = {}
         if pass_info[0] != "Date":
             raise ValueError("The following solution is outdated and thus this library broken. OH NOES! ")
@@ -86,7 +95,9 @@ class ISSpy():
         return dic
     
     def get_location(self):
-
+        """
+        TO DO
+        """
         addr = "http://api.open-notify.org/iss-now.json"
         
         r = self.http.request('get', addr)
@@ -94,7 +105,9 @@ class ISSpy():
         obj = json.loads(r.data.decode('utf-8'))
 
     def get_next_pass_ON(self):
-        
+        """
+        TO DO
+        """
         addr = f"http://api.open-notify.org/iss-pass.json?lat={self.ylat}&lon={self.xlong}"
 
         r = self.http.request('get', addr)
