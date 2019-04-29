@@ -1,1 +1,3 @@
-from isspy.isspy import isspy
+name = "isspy"
+__author__ = "A Fordham"
+
