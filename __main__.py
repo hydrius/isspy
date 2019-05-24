@@ -43,8 +43,6 @@ class ISSpy():
         """
         Returns passes from Spot The Station (as a list) 
         """
-
-
         passes = []
 
         # Make URL an f-string and put in Country, region, city)
@@ -128,5 +126,5 @@ if __name__ == "__main__":
     ylong = 144
     x = ISSpy(country,region,city)
     #x.get_next_pass()
-    print(x.get_passes_STS())
+    print(x.get_passes())
                 
